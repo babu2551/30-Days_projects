@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing: border-box;
+        }
+
+        body{
+            background-color: rgb(128, 128, 128);
+
+        }
+
+        h1{
+            text-align: center;
+            margin-top: 20px;
+            font-size: 50px;
+            font-weight: bold;
+            color: #000000;
+            text-shadow: 0 0 8px white;
+            
+        }
+
+        .container{
+            height: 100%;
+            width: 100%;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calculator{
+            background: rgba(255, 255, 255,0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            height: 400px;
+            width: 350px;
+            border-radius: 15px;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.2), 0 0 8px rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        input{
+            background: transparent;
+            width: 100%;
+            height: 50px;
+            border-radius: 10px;
+            outline: 0;
+            border: 0;
+            font-size: 40px;
+            text-align: right;
+            color: rgb(0, 0, 0);
+        }
+
+        #button{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn{
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 20px;
+            margin-top: 8px;
+            color: #000000;
+            background: rgba(255, 255, 255,0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            font-weight: bold;
+            border: 0;
+            outline:0;
+            cursor: pointer;
+        }
+
+        .btn:hover{
+            box-shadow: 0 0 8px white;
+        }
+
+        #equal-to{
+            background-color:orange;
+            color: #fff;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Calculator</h1>
+    <div class="container">
+
+        <div class="calculator">
+            <input type="text" placeholder="0"  id="display">
+
+            <div id="button">
+                <button class="btn" onclick="clearDisplay('')">AC</button>
+                <button class="btn" onclick="appendValue('%')">%</button>
+                <button class="btn" onclick="clearDisplay('')">X</button>
+                <button class="btn" onclick="appendValue('/')">/</button>
+            </div>
+            <div id="button">
+                <button class="btn" onclick="appendValue('7')">7</button>
+                <button class="btn" onclick="appendValue('8')">8</button>
+                <button class="btn" onclick="appendValue('9')">9</button>
+                <button class="btn" onclick="appendValue('*')">*</button>
+            </div>
+            <div id="button">
+                <button class="btn" onclick="appendValue('4')">4</button>
+                <button class="btn" onclick="appendValue('5')">5</button>
+                <button class="btn" onclick="appendValue('6')">6</button>
+                <button class="btn" onclick="appendValue('-')">-</button>
+            </div>
+            <div id="button">
+                <button class="btn" onclick="appendValue('1')">1</button>
+                <button class="btn" onclick="appendValue('2')">2</button>
+                <button class="btn" onclick="appendValue('3')">3</button>
+                <button class="btn" onclick="appendValue('+')">+</button>
+            </div>
+            <div id="button">
+                <button class="btn" onclick="appendValue('00')">00</button>
+                <button class="btn" onclick="appendValue('0')">0</button>
+                <button class="btn" onclick="appendValue('-')">.</button>
+                <button class="btn" id="equal-to" onclick="cal()">=</button>
+            </div>
+
+        </div>
+    </div>
+       
+
+
+    <script src="calculator.js"></script>
+</body>
+</html> 
