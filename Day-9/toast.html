@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toast Notification</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            background: #f7edff;
+        }
+
+        .button {
+            margin: 50px;
+        }
+
+        .button button {
+            background: #333;
+            color: #fff;
+            border: 0;
+            outline: 0;
+            width: 120px;
+            height: 40px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        #toast-box {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            align-items: flex-end;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        .toast {
+            width: 400px;
+            height: 80px;
+            background: #fff;
+            font-weight: 500;
+            margin: 15px 0;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-left: 6px solid green;
+            position: relative;
+            animation: slideIn 0.5s ease forwards, fadeOut 0.5s ease 2.5s forwards;
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .toast::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 5px;
+            background: green;
+            animation: anim 6s linear forwards;
+        }
+        @keyframes anim{
+            100%{
+                width: 0;
+            }
+        }
+        .toast.error::after{
+            background: red;
+        }
+        .toast.warning::after{
+            background: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="button">
+        <button onclick="showToast(successMsg)">Success</button>
+        <button onclick="showToast(warningMsg)">Warning</button>
+        <button onclick="showToast(errorMsg)">Error</button>
+    </div>
+
+    <div id="toast-box"> </div>
+
+    <script>
+
+        let toastBox = document.getElementById('toast-box');
+        let successMsg = '✅ Task Completed Successfully';
+        let warningMsg = '⚠️ Warning: Check Your Input';
+        let errorMsg = '❌ Error: Something Went Wrong';
+
+        function showToast(msg) {
+
+            let toast = document.createElement('div');
+
+            toast.classList.add('toast');
+
+            toast.innerHTML = msg;
+
+            toastBox.appendChild(toast);
+
+            if (msg.includes('✅')) {
+                toast.style.borderLeftColor = 'green';
+            } else if (msg.includes('⚠️')) {
+                toast.classList.add('warning');
+                toast.style.borderLeftColor = 'orange';
+            } else if (msg.includes('❌')) {
+                toast.classList.add('error');
+                toast.style.borderLeftColor = 'red';
+            }
+            setTimeout(() => {
+                toast.remove();
+            }, 6000);
+        }
+    </script>
+</body>
+
+</html>
