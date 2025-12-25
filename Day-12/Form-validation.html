@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .contact-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        label {
+            position: absolute;
+            top: 12px;
+            left: 15px;
+            color: #888;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input:focus+label,
+        input:not(:placeholder-shown)+label,
+        textarea:focus+label,
+        textarea:not(:placeholder-shown)+label {
+            top: -10px;
+            left: 10px;
+            font-size: 12px;
+            color: #667eea;
+            background: white;
+            padding: 0 8px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 480px) {
+            .contact-container {
+                padding: 30px 20px;
+                margin: 10px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+        }
+
+        .form-group span {
+            position: absolute;
+            bottom: 12px;
+            right: 17px;
+            font-size: 14px;
+            color: red;
+        }
+
+        #submit-error {
+            color: red;
+        }
+
+        .form-group span i {
+            color: seagreen;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contact-container">
+        <h2>Get In Touch</h2>
+        <form action="#" method="POST">
+            <div class="form-group">
+                <input type="text" id="name" name="name" placeholder=" " onkeyup="validateName()">
+                <label for="name">Full Name</label>
+                <span id="name-error"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder=" " onkeyup="validateEmail()">
+                <label for="email">Email Address</label>
+                <span id="email-error"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="tel" id="phone" name="phone" placeholder=" " onkeyup="validatePhone()">
+                <label for="phone">Phone Number</label>
+                <span id="phone-error"></span>
+            </div>
+
+            <div class="form-group">
+                <textarea id="message" name="message" placeholder=" " onkeyup="validateMessage()"></textarea>
+                <label for="message">Your Message</label>
+                <span id="message-error"></span>
+            </div>
+
+            <button type="submit" class="submit-btn" onclick="return validateForm()">Send Message</button>
+            <span id="submit-error"></span>
+        </form>
+    </div>
+    <script>
+        var nameError = document.getElementById('name-error');
+        var emailError = document.getElementById('email-error');
+        var phoneError = document.getElementById('phone-error');
+        var messageError = document.getElementById('message-error');
+        var submitError = document.getElementById('submit-error');
+
+        function validateName() {
+            var name = document.getElementById('name').value;
+            if (name.length == 0) {
+                nameError.innerHTML = 'Name is required';
+                return false;
+            }
+            if (!name.match(/^[A-Za-z]*\s{1}[A-Za-z]*$/)) {
+                nameError.innerHTML = 'Write full name';
+                return false;
+            }
+            nameError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            return true;
+        }
+
+        function validateEmail() {
+            var email = document.getElementById('email').value;
+            if (email.length == 0) {
+                emailError.innerHTML = 'Email is required';
+                return false;
+            }
+            if (!email.match(/^[A-Za-z0-9._-]+@[A-Za-z]+\.[a-z]{2,4}$/)) {
+                emailError.innerHTML = 'Email is invalid';
+                return false;
+            }
+            emailError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            return true;
+
+        }
+
+        function validatePhone() {
+            var phone = document.getElementById('phone').value;
+            if (phone.length == 0) {
+                phoneError.innerHTML = 'Phone number is required';
+                return false;
+            }
+            if (phone.length != 10) {
+                phoneError.innerHTML = ' phone number should be 10 digits ';
+                return false;
+            }
+            if (!phone.match(/^[0-9]{10}$/)) {
+                phoneError.innerHTML = 'Only digits are allowed';
+                return false;
+            }
+            phoneError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            return true;
+        }
+
+        function validateMessage() {
+
+            var message = document.getElementById('message').value;
+            var required = 20;
+            var left = required - message.length;
+
+            if (left > 0) {
+                messageError.innerHTML = left + 'more characters required';
+                return false;
+            }
+            messageError.innerHTML = '<i class="fa-solid fa-circle-check"></i>';
+            return true;
+
+        }
+
+        function validateForm() {
+            if (!validateName() || !validateEmail() || !validatePhone() || !validateMessage()) {
+                submitError.style.display = 'block';
+                submitError.innerHTML = 'Please fix the error to submit';
+                setTimeout(function () {
+                    submitError.style.display = 'none';
+                }, 3000);
+                return false;
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
